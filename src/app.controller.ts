@@ -3,7 +3,6 @@ import { LocalAuthGuard } from './auth/local-auth.guard';
 import { JwtAuthGuard } from './auth/jwt-auth.guard';
 import { AuthService } from './auth/auth.service';
 import { AppService } from './app.service';
-import { User } from './users/user.entity';
 import { CreateUserDto } from './users/dto/user.create.dto';
 
 @Controller()
