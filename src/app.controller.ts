@@ -27,12 +27,6 @@ export class AppController {
     return req.user;
   }
 
-  @UseGuards(JwtAuthGuard)
-  @Get('profile')
-  getProfile(@Request() req) {
-    return req.user;
-  }
-
   getHello() {
     return 'Hello World!';
   }
