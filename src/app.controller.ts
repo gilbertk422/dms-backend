@@ -24,7 +24,6 @@ export class AppController {
   @UseGuards(JwtAuthGuard)
   @Get('auth/me')
   getIdentity(@Request() req) {
-    console.log(req.user);
     return req.user;
   }
 
