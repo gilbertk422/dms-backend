@@ -28,14 +28,7 @@ export class AuthService {
 
   async register(createUserDto: CreateUserDto) {
     const payload = { email: createUserDto.email, password: createUserDto.password };
-    try {
-      await this.usersService.create(payload);
-    } catch (err) {
-      return err;
-    }
-    return {
-      statusCode: 200,
-      message: 'user registered',
-    };
+    await this.usersService.create(payload);
+    return {};
   }
 }
