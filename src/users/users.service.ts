@@ -22,7 +22,7 @@ export class UsersService {
     return this.usersRepository.findOne({ where: { email } });
   }
 
-  async create({ email, password }: { email: string; password: string }): Promise<User> {
+  async create({ email, password, role }: { email: string; password: string; role: string }): Promise<User> {
     const userInDb = await this.findOneByEmail(email);
     if (userInDb) {
       throw new HttpException('User already exists', HttpStatus.BAD_REQUEST);
@@ -31,6 +31,7 @@ export class UsersService {
     const user: User = await this.usersRepository.create({
       email,
       password,
+      role,
     });
 
     await this.usersRepository.save(user);

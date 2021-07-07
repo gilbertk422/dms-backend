@@ -27,7 +27,7 @@ export class AuthService {
   }
 
   async register(createUserDto: CreateUserDto) {
-    const payload = { email: createUserDto.email, password: createUserDto.password };
+    const payload = { email: createUserDto.email, password: createUserDto.password, role: createUserDto.role };
     await this.usersService.create(payload);
     return {};
   }
