@@ -17,7 +17,7 @@ async function bootstrap() {
   SwaggerModule.setup('api', app, document);
 
   app.enableCors({
-    origin: ['http://localhost:3001', 'https://dms-dev.alethea.ai', 'https://dms.alethea.ai'],
+    origin: ['http://localhost:3001', 'http://localhost:3000', 'https://dms-dev.alethea.ai', 'https://dms.alethea.ai'],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTION',
     preflightContinue: false,
     optionsSuccessStatus: 204,
