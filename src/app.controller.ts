@@ -4,10 +4,19 @@ import { JwtAuthGuard } from './auth/jwt-auth.guard';
 import { AuthService } from './auth/auth.service';
 import { AppService } from './app.service';
 import { CreateUserDto } from './users/dto/user.create.dto';
+import { S3ManagerService } from './aws/s3/s3-manager.service';
+import { v4 as uuidv4 } from 'uuid';
+import * as path from 'path';
+import * as mime from 'mime-types';
+import { UploadDto } from './users/dto/upload.dto';
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService, private authService: AuthService) {}
+  constructor(
+    private readonly appService: AppService,
+    private authService: AuthService,
+    private s3ManagerService: S3ManagerService,
+  ) {}
 
   @UseGuards(LocalAuthGuard)
   @Post('auth/login')
@@ -24,6 +33,14 @@ export class AppController {
   @Get('auth/me')
   getIdentity(@Request() req) {
     return req.user;
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Post('upload')
+  async upload(@Body() uploadDto: UploadDto) {
+    const resultKey = `${uuidv4()}${path.extname(uploadDto.filename)}`;
+    const uploadURL = await this.s3ManagerService.getSignedUrl(resultKey, mime.lookup(resultKey));
+    return { resultKey, uploadURL };
   }
 
   getHello() {
