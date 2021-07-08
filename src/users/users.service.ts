@@ -2,20 +2,20 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from './user.entity';
+import { TypeOrmCrudService } from '@nestjsx/crud-typeorm';
+import { Crud } from '@nestjsx/crud';
 
 @Injectable()
-export class UsersService {
+export class UsersService extends TypeOrmCrudService<User> {
   constructor(
     @InjectRepository(User)
     private usersRepository: Repository<User>,
-  ) {}
+  ) {
+    super(usersRepository);
+  }
 
   findAll(): Promise<User[]> {
     return this.usersRepository.find();
-  }
-
-  findOne(id: string): Promise<User> {
-    return this.usersRepository.findOne(id);
   }
 
   findOneByEmail(email: string): Promise<User> {
