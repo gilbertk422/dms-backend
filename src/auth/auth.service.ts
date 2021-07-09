@@ -1,8 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { CreateUserDto } from 'src/users/dto/user.create.dto';
 import { User } from 'src/users/user.entity';
 import { UsersService } from '../users/users.service';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class AuthService {
@@ -11,7 +12,11 @@ export class AuthService {
   async validateUser(email: string, password: string): Promise<any> {
     const user = await this.usersService.findOneByEmail(email);
 
-    if (user && user.password === password) {
+    if (!user) throw new NotFoundException();
+
+    const isValid = await bcrypt.compare(password, user.password);
+
+    if (user && isValid) {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { password, ...result } = user;
       return result;
@@ -28,7 +33,12 @@ export class AuthService {
   }
 
   async register(createUserDto: CreateUserDto) {
-    const payload = { email: createUserDto.email, password: createUserDto.password, role: createUserDto.role };
+    const hashPassword = await bcrypt.hash(createUserDto.password, 10);
+    const payload = {
+      email: createUserDto.email,
+      password: hashPassword,
+      role: createUserDto.role,
+    };
     await this.usersService.create(payload);
     return {};
   }

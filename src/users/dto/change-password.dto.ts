@@ -1,9 +1,14 @@
 import { IsNotEmpty, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
-export class UploadDto {
+export class ChangePasswordDto {
   @ApiProperty()
   @IsNotEmpty()
   @IsString()
-  filename: string;
+  oldPassword: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsString()
+  newPassword: string;
 }
