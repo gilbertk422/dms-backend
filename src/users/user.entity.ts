@@ -23,3 +23,5 @@ export class User {
   @Column()
   role: string;
 }
+
+export type IUserRequest = Request & { user: User };

@@ -39,6 +39,10 @@ export class UsersService extends TypeOrmCrudService<User> {
     return user;
   }
 
+  async save(user: User): Promise<User> {
+    return await this.usersRepository.save(user);
+  }
+
   async remove(id: string): Promise<void> {
     await this.usersRepository.delete(id);
   }
