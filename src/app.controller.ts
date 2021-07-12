@@ -9,6 +9,7 @@ import { v4 as uuidv4 } from 'uuid';
 import * as path from 'path';
 import * as mime from 'mime-types';
 import { UploadDto } from './users/dto/upload.dto';
+import { ApiBearerAuth } from '@nestjs/swagger';
 
 @Controller()
 export class AppController {
@@ -29,12 +30,14 @@ export class AppController {
     return this.authService.register(createUserDto);
   }
 
+  @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   @Get('auth/me')
   getIdentity(@Request() req) {
     return req.user;
   }
 
+  @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   @Post('upload')
   async upload(@Body() uploadDto: UploadDto) {

@@ -4,6 +4,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
+import { VoiceArtistTasksModule } from './voiceartisttask/voiceartisttasks.module';
 import { AwsSdkModule } from 'nest-aws-sdk';
 import { S3ManagerModule } from './aws/s3/s3-manager.module';
 import { S3 } from 'aws-sdk';
@@ -22,6 +23,7 @@ import config from './config';
     }),
     AuthModule,
     UsersModule,
+    VoiceArtistTasksModule,
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: 'dms.cqmwuwygpmg4.us-east-1.rds.amazonaws.com',
