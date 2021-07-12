@@ -6,17 +6,19 @@ import { ChangePasswordDto } from './dto/change-password.dto';
 import { IUserRequest, User } from './user.entity';
 import { UsersService } from './users.service';
 import * as bcrypt from 'bcrypt';
+import { ApiBearerAuth } from '@nestjs/swagger';
 
 @Crud({
   model: {
     type: User,
   },
 })
+@ApiBearerAuth()
+@UseGuards(JwtAuthGuard)
 @Controller('users')
 export class UsersController implements CrudController<User> {
   constructor(public service: UsersService) {}
 
-  @UseGuards(JwtAuthGuard)
   @Post('change-password')
   async changePassword(@Body() changePasswordDto: ChangePasswordDto, @Req() req: IUserRequest) {
     const user = await this.service.findOne(req.user.id);
