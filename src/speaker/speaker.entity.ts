@@ -1,3 +1,4 @@
+import { DataLabellingTask } from 'src/datalabellingtask/datalabellingtask.entity';
 import { User } from 'src/users/user.entity';
 import {
   Entity,
@@ -7,10 +8,11 @@ import {
   JoinColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  OneToMany,
 } from 'typeorm';
 
 @Entity()
-export class VoiceArtistTask {
+export class Speaker {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -18,37 +20,21 @@ export class VoiceArtistTask {
   name: string;
 
   @Column()
-  speaker_name: string;
-
-  @Column()
-  due_date: Date;
-
-  @Column()
-  status: string;
-
-  @Column()
-  accent: string;
-
-  @Column()
   gender: string;
 
   @Column()
-  emotion: string;
-
-  @Column('text')
-  description: string;
-
-  @ManyToOne(() => User, (u) => u.managing_tasks)
-  @JoinColumn()
-  user: User;
-
-  @ManyToOne(() => User, (u) => u.assigned_tasks)
-  @JoinColumn()
-  manager: User;
+  accent: string;
 
   @CreateDateColumn()
   created_at: Date;
 
   @UpdateDateColumn()
   updated_at: Date;
+
+  @ManyToOne(() => User, (u) => u.managing_speakers)
+  @JoinColumn()
+  user: User;
+
+  @OneToMany((type) => DataLabellingTask, (t) => t.speaker)
+  assigned_tasks: DataLabellingTask[];
 }

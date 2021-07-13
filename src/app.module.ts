@@ -5,6 +5,8 @@ import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { VoiceArtistTasksModule } from './voiceartisttask/voiceartisttasks.module';
+import { DataLabellingTasksModule } from './datalabellingtask/datalabellingtask.module';
+import { SpeakersModule } from './speaker/speaker.module';
 import { AwsSdkModule } from 'nest-aws-sdk';
 import { S3ManagerModule } from './aws/s3/s3-manager.module';
 import { S3 } from 'aws-sdk';
@@ -24,6 +26,8 @@ import config from './config';
     AuthModule,
     UsersModule,
     VoiceArtistTasksModule,
+    DataLabellingTasksModule,
+    SpeakersModule,
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: process.env.TYPEORM_HOST,
