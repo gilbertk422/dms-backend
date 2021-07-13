@@ -11,6 +11,16 @@ import { VoiceArtistTasksService } from './voiceartisttasks.service';
   model: {
     type: VoiceArtistTask,
   },
+  query: {
+    join: {
+      user: {
+        eager: true
+      },
+      manager: {
+        eager: true
+      }
+    }
+  }
 })
 @ApiBearerAuth()
 @UseGuards(JwtAuthGuard)

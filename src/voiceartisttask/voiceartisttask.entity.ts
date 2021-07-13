@@ -30,17 +30,11 @@ export class VoiceArtistTask {
   @Column('text')
   description: string;
 
-  @Column()
-  user_id: string;
-
-  @Column()
-  manager_id: string;
-
-  @ManyToOne((type) => User)
-  @JoinColumn({ name: 'user_id', referencedColumnName: 'id' })
+  @ManyToOne(() => User, u => u.managing_tasks)
+  @JoinColumn()
   user: User;
 
-  @ManyToOne((type) => User)
-  @JoinColumn({ name: 'manager_id', referencedColumnName: 'id' })
+  @ManyToOne(() => User, u => u.assigned_tasks)
+  @JoinColumn()
   manager: User;
 }
