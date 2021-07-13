@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { VoiceArtistTask } from 'src/voiceartisttask/voiceartisttask.entity';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 
 @Entity()
 export class User {
@@ -22,6 +23,12 @@ export class User {
 
   @Column()
   role: string;
+
+  @OneToMany(type => VoiceArtistTask, t => t.user)
+  managing_tasks: VoiceArtistTask[];
+
+  @OneToMany(type => VoiceArtistTask, t => t.manager)
+  assigned_tasks: VoiceArtistTask[];
 }
 
 export type IUserRequest = Request & { user: User };
