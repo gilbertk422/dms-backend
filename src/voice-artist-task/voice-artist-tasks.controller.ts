@@ -5,8 +5,8 @@ import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
 import { IUserRequest } from '../users/user.entity';
 import { CreateTaskDto } from './dto/create-task.dto';
-import { VoiceArtistTask } from './voiceartisttask.entity';
-import { VoiceArtistTasksService } from './voiceartisttasks.service';
+import { VoiceArtistTask } from './voice-artist-task.entity';
+import { VoiceArtistTasksService } from './voice-artist-tasks.service';
 
 @Crud({
   dto: {
@@ -28,7 +28,7 @@ import { VoiceArtistTasksService } from './voiceartisttasks.service';
 })
 @ApiBearerAuth()
 @UseGuards(JwtAuthGuard)
-@Controller('voiceartisttasks')
+@Controller('voice-artist-tasks')
 export class VoiceArtistTasksController implements CrudController<VoiceArtistTask> {
   constructor(public service: VoiceArtistTasksService) {}
 }

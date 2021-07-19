@@ -3,14 +3,14 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { TypeOrmCrudService } from '@nestjsx/crud-typeorm';
 import { Crud } from '@nestjsx/crud';
-import { VoiceArtistTask } from './voiceartisttask.entity';
+import { DataLabellingTask } from './data-labelling-task.entity';
 
 @Injectable()
-export class VoiceArtistTasksService extends TypeOrmCrudService<VoiceArtistTask> {
+export class DataLabellingTasksService extends TypeOrmCrudService<DataLabellingTask> {
   constructor(
-    @InjectRepository(VoiceArtistTask)
-    private voiceartisttasksRepository: Repository<VoiceArtistTask>,
+    @InjectRepository(DataLabellingTask)
+    private datalabellingtasksRepository: Repository<DataLabellingTask>,
   ) {
-    super(voiceartisttasksRepository);
+    super(datalabellingtasksRepository);
   }
 }

@@ -1,3 +1,4 @@
+import { TaskResource } from 'src/task-resource/task-resource.entity';
 import { User } from 'src/users/user.entity';
 import {
   Entity,
@@ -7,6 +8,7 @@ import {
   JoinColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  OneToMany,
 } from 'typeorm';
 
 @Entity()
@@ -45,6 +47,9 @@ export class VoiceArtistTask {
   @ManyToOne(() => User, (u) => u.assigned_tasks)
   @JoinColumn()
   manager: User;
+
+  @OneToMany((resource) => TaskResource, (r) => r.task)
+  resources: TaskResource[];
 
   @CreateDateColumn()
   created_at: Date;
