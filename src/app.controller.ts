@@ -42,7 +42,10 @@ export class AppController {
   @Post('upload')
   async upload(@Body() uploadDto: UploadDto) {
     const resultKey = `${uuidv4()}${path.extname(uploadDto.filename)}`;
-    const uploadURL = await this.s3ManagerService.getSignedUrl(resultKey, mime.lookup(resultKey));
+    const uploadURL = await this.s3ManagerService.getSignedUrl(
+      `${uploadDto.prefix || ''}/${resultKey}`,
+      mime.lookup(resultKey),
+    );
     return { resultKey, uploadURL };
   }
 

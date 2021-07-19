@@ -4,9 +4,10 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
-import { VoiceArtistTasksModule } from './voiceartisttask/voiceartisttasks.module';
-import { DataLabellingTasksModule } from './datalabellingtask/datalabellingtask.module';
-import { SpeakersModule } from './speaker/speaker.module';
+import { VoiceArtistTasksModule } from './voice-artist-task/voice-artist-tasks.module';
+import { TaskResourcesModule } from './task-resource/task-resources.module';
+import { DataLabellingTasksModule } from './data-labelling-task/data-labelling-tasks.module';
+import { SpeakersModule } from './speaker/speakers.module';
 import { AwsSdkModule } from 'nest-aws-sdk';
 import { S3ManagerModule } from './aws/s3/s3-manager.module';
 import { S3 } from 'aws-sdk';
@@ -27,6 +28,7 @@ import config from './config';
     UsersModule,
     VoiceArtistTasksModule,
     DataLabellingTasksModule,
+    TaskResourcesModule,
     SpeakersModule,
     TypeOrmModule.forRoot({
       type: 'mysql',

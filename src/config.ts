@@ -9,4 +9,9 @@ export default {
     secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
     s3BucketName: process.env.AWS_S3_BUCKET_NAME,
   },
+
+  basicAuth: {
+    user: process.env.HTTP_BASIC_USER,
+    pass: process.env.HTTP_BASIC_PASS,
+  },
 };

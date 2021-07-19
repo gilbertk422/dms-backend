@@ -4,8 +4,8 @@ import { Crud, CrudController } from '@nestjsx/crud';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
 import { CreateTaskDto } from './dto/create-task.dto';
-import { DataLabellingTask } from './datalabellingtask.entity';
-import { DataLabellingTasksService } from './datalabellingtask.service';
+import { DataLabellingTask } from './data-labelling-task.entity';
+import { DataLabellingTasksService } from './data-labelling-tasks.service';
 
 @Crud({
   dto: {
@@ -30,7 +30,7 @@ import { DataLabellingTasksService } from './datalabellingtask.service';
 })
 @ApiBearerAuth()
 @UseGuards(JwtAuthGuard)
-@Controller('datalabellingtasks')
+@Controller('data-labelling-tasks')
 export class DataLabellingTasksController implements CrudController<DataLabellingTask> {
   constructor(public service: DataLabellingTasksService) {}
 }

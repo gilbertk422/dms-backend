@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class UploadDto {
@@ -6,4 +6,9 @@ export class UploadDto {
   @IsNotEmpty()
   @IsString()
   filename: string;
+
+  @ApiProperty()
+  @IsOptional()
+  @IsString()
+  prefix: string;
 }

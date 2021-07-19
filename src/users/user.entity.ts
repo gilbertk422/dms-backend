@@ -1,5 +1,5 @@
 import { Speaker } from 'src/speaker/speaker.entity';
-import { VoiceArtistTask } from 'src/voiceartisttask/voiceartisttask.entity';
+import { VoiceArtistTask } from 'src/voice-artist-task/voice-artist-task.entity';
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 
 @Entity()

@@ -1,4 +1,4 @@
-import { DataLabellingTask } from 'src/datalabellingtask/datalabellingtask.entity';
+import { DataLabellingTask } from 'src/data-labelling-task/data-labelling-task.entity';
 import { User } from 'src/users/user.entity';
 import {
   Entity,
@@ -24,6 +24,9 @@ export class Speaker {
 
   @Column()
   accent: string;
+
+  @Column()
+  status: string;
 
   @CreateDateColumn()
   created_at: Date;

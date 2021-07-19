@@ -4,7 +4,7 @@ import { Crud, CrudController } from '@nestjsx/crud';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
 import { Speaker } from './speaker.entity';
-import { SpeakersService } from './speaker.service';
+import { SpeakersService } from './speakers.service';
 
 @Crud({
   model: {
