@@ -39,7 +39,7 @@ export class DataLabellingTask {
   @JoinColumn()
   speaker: Speaker;
 
-  @ManyToOne(() => User, (u) => u.managing_tasks)
+  @ManyToOne(() => User, (u) => u.managing_tasks, { cascade: true, onDelete: 'CASCADE' })
   @JoinColumn()
   user: User;
 

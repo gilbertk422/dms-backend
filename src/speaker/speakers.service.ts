@@ -7,6 +7,7 @@ import { VoiceArtistTask } from 'src/voice-artist-task/voice-artist-task.entity'
 import { SpeakerResource } from 'src/speaker-resource/speaker-resource.entity';
 import { SpeakerResourcesService } from 'src/speaker-resource/speaker-resources.service';
 import { S3ManagerService } from 'src/aws/s3/s3-manager.service';
+import config from 'src/config';
 
 @Injectable()
 export class SpeakersService extends TypeOrmCrudService<Speaker> {
@@ -41,7 +42,10 @@ export class SpeakersService extends TypeOrmCrudService<Speaker> {
       await this.speakerResourcesService.create(speakerResource);
     }
 
-    await this.s3ManagerService.copyObject(`dms/workdir/task/${task.id}`, `dms/workdir/speaker/${speaker.id}`);
+    await this.s3ManagerService.copyFolder(
+      `${config.prefix}/workdir/task/${task.id}`,
+      `${config.prefix}/workdir/speaker/${speaker.id}`,
+    );
 
     return speaker;
   }

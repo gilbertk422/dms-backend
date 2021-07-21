@@ -14,4 +14,6 @@ export default {
     user: process.env.HTTP_BASIC_USER,
     pass: process.env.HTTP_BASIC_PASS,
   },
+
+  prefix: process.env.PREFIX,
 };

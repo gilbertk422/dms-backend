@@ -40,7 +40,7 @@ export class VoiceArtistTask {
   @Column('text')
   description: string;
 
-  @ManyToOne(() => User, (u) => u.managing_tasks)
+  @ManyToOne(() => User, (u) => u.managing_tasks, { cascade: true, onDelete: 'CASCADE' })
   @JoinColumn()
   user: User;
 

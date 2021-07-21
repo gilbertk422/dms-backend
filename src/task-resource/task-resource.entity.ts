@@ -18,6 +18,6 @@ export class TaskResource {
   @UpdateDateColumn()
   updated_at: Date;
 
-  @ManyToOne(() => VoiceArtistTask, (t) => t.resources)
+  @ManyToOne(() => VoiceArtistTask, (t) => t.resources, { cascade: true, onDelete: 'CASCADE' })
   task: VoiceArtistTask;
 }
