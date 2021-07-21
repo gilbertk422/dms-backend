@@ -38,7 +38,7 @@ export class Speaker {
   @UpdateDateColumn()
   updated_at: Date;
 
-  @ManyToOne(() => User, (u) => u.managing_speakers)
+  @ManyToOne(() => User, (u) => u.managing_speakers, { cascade: true, onDelete: 'CASCADE' })
   @JoinColumn()
   user: User;
 

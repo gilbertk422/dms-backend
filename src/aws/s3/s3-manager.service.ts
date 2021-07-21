@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectAwsService } from 'nest-aws-sdk';
 import { S3 } from 'aws-sdk';
 import config from '../../config';
+import * as path from 'path';
 
 @Injectable()
 export class S3ManagerService {
@@ -21,7 +22,15 @@ export class S3ManagerService {
     });
   }
 
-  async copyObject(srcKey: string, destKey: string) {
-    await this.s3.copyObject({ Bucket: this.Bucket, CopySource: srcKey, Key: destKey }).promise();
+  async copyFolder(src: string, dest: string) {
+    const list = await this.s3.listObjects({ Prefix: src, Bucket: this.Bucket }).promise();
+    for (let file of list.Contents) {
+      var params = {
+        Bucket: this.Bucket,
+        CopySource: this.Bucket + '/' + file.Key,
+        Key: `${dest}/${path.basename(file.Key)}`,
+      };
+      await this.s3.copyObject(params).promise();
+    }
   }
 }

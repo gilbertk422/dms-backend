@@ -33,6 +33,6 @@ export class SpeakerResource {
   @UpdateDateColumn()
   updated_at: Date;
 
-  @ManyToOne(() => Speaker, (s) => s.resources)
+  @ManyToOne(() => Speaker, (s) => s.resources, { cascade: true, onDelete: 'CASCADE' })
   speaker: Speaker;
 }
