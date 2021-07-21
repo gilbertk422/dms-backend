@@ -20,4 +20,8 @@ export class S3ManagerService {
       ACL: 'public-read',
     });
   }
+
+  async copyObject(srcKey: string, destKey: string) {
+    await this.s3.copyObject({ Bucket: this.Bucket, CopySource: srcKey, Key: destKey }).promise();
+  }
 }

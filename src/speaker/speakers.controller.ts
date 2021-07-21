@@ -1,7 +1,9 @@
-import { Controller, UseGuards } from '@nestjs/common';
+import { Controller, Get, Req, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth } from '@nestjs/swagger';
-import { Crud, CrudController } from '@nestjsx/crud';
+import { Crud, CrudController, CrudRequest, GetManyDefaultResponse, Override, ParsedRequest } from '@nestjsx/crud';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { SpeakerResourcesService } from 'src/speaker-resource/speaker-resources.service';
+import { VoiceArtistTasksService } from 'src/voice-artist-task/voice-artist-tasks.service';
 
 import { Speaker } from './speaker.entity';
 import { SpeakersService } from './speakers.service';
@@ -22,5 +24,32 @@ import { SpeakersService } from './speakers.service';
 @UseGuards(JwtAuthGuard)
 @Controller('speakers')
 export class SpeakersController implements CrudController<Speaker> {
-  constructor(public service: SpeakersService) {}
+  constructor(
+    public service: SpeakersService,
+    private voiceArtistTasksService: VoiceArtistTasksService,
+    private speakerResourcesService: SpeakerResourcesService,
+  ) {}
+
+  get base(): CrudController<Speaker> {
+    return this;
+  }
+
+  @Get('/generate/:taskId')
+  async generate(@Req() req) {
+    const task = await this.voiceArtistTasksService.findOne(req.params.taskId, { relations: ['user', 'resources'] });
+    return await this.service.generate(task);
+  }
+
+  @Override()
+  async getMany(@ParsedRequest() req: CrudRequest) {
+    const response: any = await this.base.getManyBase(req);
+    if (response.data) {
+      for (let speaker of response.data) {
+        speaker.entries = await this.speakerResourcesService.getTotalEntries(speaker.id);
+      }
+      return response;
+    } else {
+      return response;
+    }
+  }
 }

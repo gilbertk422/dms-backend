@@ -8,6 +8,7 @@ import { VoiceArtistTasksModule } from './voice-artist-task/voice-artist-tasks.m
 import { TaskResourcesModule } from './task-resource/task-resources.module';
 import { DataLabellingTasksModule } from './data-labelling-task/data-labelling-tasks.module';
 import { SpeakersModule } from './speaker/speakers.module';
+import { SpeakerResourcesModule } from './speaker-resource/speaker-resources.module';
 import { AwsSdkModule } from 'nest-aws-sdk';
 import { S3ManagerModule } from './aws/s3/s3-manager.module';
 import { S3 } from 'aws-sdk';
@@ -30,6 +31,7 @@ import config from './config';
     DataLabellingTasksModule,
     TaskResourcesModule,
     SpeakersModule,
+    SpeakerResourcesModule,
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: process.env.TYPEORM_HOST,
