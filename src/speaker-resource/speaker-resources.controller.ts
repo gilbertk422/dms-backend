@@ -4,16 +4,16 @@ import { Crud, CrudController, CrudRequest, Override, ParsedRequest } from '@nes
 import { BasicAuthGuard } from 'src/auth/basic-auth.guard';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
-import { TaskResource } from './task-resource.entity';
-import { TaskResourcesService } from './task-resources.service';
+import { SpeakerResource } from './speaker-resource.entity';
+import { SpeakerResourcesService } from './speaker-resources.service';
 
 @Crud({
   model: {
-    type: TaskResource,
+    type: SpeakerResource,
   },
   query: {
     join: {
-      task: {
+      speaker: {
         eager: true,
       },
     },
@@ -21,11 +21,11 @@ import { TaskResourcesService } from './task-resources.service';
 })
 @ApiBearerAuth()
 @UseGuards(JwtAuthGuard)
-@Controller('task-resources')
-export class TaskResourcesController implements CrudController<TaskResource> {
-  constructor(public service: TaskResourcesService) {}
+@Controller('speaker-resources')
+export class SpeakerResourcesController implements CrudController<SpeakerResource> {
+  constructor(public service: SpeakerResourcesService) {}
 
-  get base(): CrudController<TaskResource> {
+  get base(): CrudController<SpeakerResource> {
     return this;
   }
 
@@ -38,11 +38,11 @@ export class TaskResourcesController implements CrudController<TaskResource> {
 
 @Crud({
   model: {
-    type: TaskResource,
+    type: SpeakerResource,
   },
   query: {
     join: {
-      task: {
+      speaker: {
         eager: true,
       },
     },
@@ -50,11 +50,11 @@ export class TaskResourcesController implements CrudController<TaskResource> {
 })
 @ApiBasicAuth()
 @UseGuards(BasicAuthGuard)
-@Controller('external/task-resources')
-export class ExternalTaskResourcesController implements CrudController<TaskResource> {
-  constructor(public service: TaskResourcesService) {}
+@Controller('external/speaker-resources')
+export class ExternalSpeakerResourcesController implements CrudController<SpeakerResource> {
+  constructor(public service: SpeakerResourcesService) {}
 
-  get base(): CrudController<TaskResource> {
+  get base(): CrudController<SpeakerResource> {
     return this;
   }
 }

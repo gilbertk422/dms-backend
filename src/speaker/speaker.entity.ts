@@ -1,4 +1,5 @@
 import { DataLabellingTask } from 'src/data-labelling-task/data-labelling-task.entity';
+import { SpeakerResource } from 'src/speaker-resource/speaker-resource.entity';
 import { User } from 'src/users/user.entity';
 import {
   Entity,
@@ -26,6 +27,9 @@ export class Speaker {
   accent: string;
 
   @Column()
+  emotion: string;
+
+  @Column()
   status: string;
 
   @CreateDateColumn()
@@ -40,4 +44,7 @@ export class Speaker {
 
   @OneToMany((type) => DataLabellingTask, (t) => t.speaker)
   assigned_tasks: DataLabellingTask[];
+
+  @OneToMany((type) => SpeakerResource, (r) => r.speaker)
+  resources: SpeakerResource[];
 }
