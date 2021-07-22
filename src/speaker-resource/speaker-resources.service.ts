@@ -28,7 +28,11 @@ export class SpeakerResourcesService extends TypeOrmCrudService<SpeakerResource>
     return await this.speakerResourcesRepository.save(resource);
   }
 
-  async getTotalEntries(speakerId: number) {
-    return this.speakerResourcesRepository.count({ where: { speaker: { id: speakerId } } });
+  async getTotalEntries(speakerId: number, status = '') {
+    if (status) {
+      return this.speakerResourcesRepository.count({ where: { speaker: { id: speakerId }, status } });
+    } else {
+      return this.speakerResourcesRepository.count({ where: { speaker: { id: speakerId } } });
+    }
   }
 }
