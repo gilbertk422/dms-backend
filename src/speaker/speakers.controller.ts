@@ -46,10 +46,21 @@ export class SpeakersController implements CrudController<Speaker> {
     if (response.data) {
       for (let speaker of response.data) {
         speaker.entries = await this.speakerResourcesService.getTotalEntries(speaker.id);
+        speaker.verified = await this.speakerResourcesService.getTotalEntries(speaker.id, 'verified');
       }
       return response;
     } else {
       return response;
     }
+  }
+
+  @Override()
+  async getOne(@ParsedRequest() req: CrudRequest) {
+    const response: any = await this.base.getOneBase(req);
+
+    response.entries = await this.speakerResourcesService.getTotalEntries(response.id);
+    response.verified = await this.speakerResourcesService.getTotalEntries(response.id, 'verified');
+
+    return response;
   }
 }
