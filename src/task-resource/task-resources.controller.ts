@@ -16,6 +16,9 @@ import { TaskResourcesService } from './task-resources.service';
       task: {
         eager: true,
       },
+      'task.manager': {
+        eager: true,
+      },
     },
   },
 })
