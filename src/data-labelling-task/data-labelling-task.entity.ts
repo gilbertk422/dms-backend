@@ -1,3 +1,4 @@
+import { SpeakerResource } from 'src/speaker-resource/speaker-resource.entity';
 import { Speaker } from 'src/speaker/speaker.entity';
 import { User } from 'src/users/user.entity';
 import {
@@ -43,13 +44,21 @@ export class DataLabellingTask {
   @JoinColumn()
   user: User;
 
-  @ManyToMany((type) => User, { cascade: true })
+  @ManyToMany(() => User)
   @JoinTable({
     name: 'manager_data_labelling_task',
     joinColumn: { name: 'manager_id', referencedColumnName: 'id' },
     inverseJoinColumn: { name: 'task_id', referencedColumnName: 'id' },
   })
   managers: User[];
+
+  @ManyToMany(() => SpeakerResource)
+  @JoinTable({
+    name: 'speaker_resource_data_labelling_task',
+    joinColumn: { name: 'speaker_resource_id', referencedColumnName: 'id' },
+    inverseJoinColumn: { name: 'task_id', referencedColumnName: 'id' },
+  })
+  resources: SpeakerResource[];
 
   @CreateDateColumn()
   created_at: Date;

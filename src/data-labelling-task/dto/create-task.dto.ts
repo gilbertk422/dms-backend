@@ -1,7 +1,8 @@
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { User } from 'src/users/user.entity';
 import { Speaker } from 'src/speaker/speaker.entity';
+import { SpeakerResource } from 'src/speaker-resource/speaker-resource.entity';
 
 export class CreateTaskDto {
   @ApiProperty()
@@ -38,5 +39,9 @@ export class CreateTaskDto {
 
   @ApiProperty()
   @IsNotEmpty()
-  users: User[];
+  managers: User[];
+
+  @ApiProperty()
+  @IsOptional()
+  resources: SpeakerResource[];
 }
