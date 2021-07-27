@@ -1,4 +1,5 @@
 import { Controller, UseGuards } from '@nestjs/common';
+import { SCondition } from '@nestjsx/crud-request';
 import { ApiBearerAuth } from '@nestjs/swagger';
 import { Crud, CrudController } from '@nestjsx/crud';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
@@ -22,7 +23,10 @@ import { DataLabellingTasksService } from './data-labelling-tasks.service';
       speaker: {
         eager: true,
       },
-      users: {
+      managers: {
+        eager: true,
+      },
+      resources: {
         eager: true,
       },
     },
