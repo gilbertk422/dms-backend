@@ -42,9 +42,9 @@ export class Speaker {
   @JoinColumn()
   user: User;
 
-  @OneToMany((type) => DataLabellingTask, (t) => t.speaker)
+  @OneToMany(() => DataLabellingTask, (t) => t.speaker)
   assigned_tasks: DataLabellingTask[];
 
-  @OneToMany((type) => SpeakerResource, (r) => r.speaker)
+  @OneToMany(() => SpeakerResource, (r) => r.speaker)
   resources: SpeakerResource[];
 }

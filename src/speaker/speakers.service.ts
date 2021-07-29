@@ -8,6 +8,8 @@ import { SpeakerResource } from 'src/speaker-resource/speaker-resource.entity';
 import { SpeakerResourcesService } from 'src/speaker-resource/speaker-resources.service';
 import { S3ManagerService } from 'src/aws/s3/s3-manager.service';
 import config from 'src/config';
+import { DataLabellingTask } from 'src/data-labelling-task/data-labelling-task.entity';
+import constants from 'src/constants';
 
 @Injectable()
 export class SpeakersService extends TypeOrmCrudService<Speaker> {
@@ -18,6 +20,20 @@ export class SpeakersService extends TypeOrmCrudService<Speaker> {
     private s3ManagerService: S3ManagerService,
   ) {
     super(speakersRepository);
+  }
+
+  async process(task: DataLabellingTask) {
+    for (let taskResource of task.resources) {
+      const speakerResource = await this.speakerResourcesService.findOne(taskResource.speaker_resource_id);
+      if (!speakerResource) continue;
+
+      speakerResource[constants.TARGET_STATUS[task.task_type]] = taskResource[constants.TARGET_STATUS[task.task_type]];
+      if (taskResource.reported) {
+        speakerResource.reported = taskResource.reported;
+        speakerResource.notes = taskResource.notes;
+      }
+      await this.speakerResourcesService.save(speakerResource);
+    }
   }
 
   async generate(task: VoiceArtistTask) {
@@ -34,12 +50,16 @@ export class SpeakersService extends TypeOrmCrudService<Speaker> {
       const speakerResource = new SpeakerResource();
       speakerResource.transcription = taskResource.transcription;
       speakerResource.audio = taskResource.audio;
-      speakerResource.status = 'unverified';
       speakerResource.accent = speaker.accent;
       speakerResource.emotion = speaker.emotion;
       speakerResource.gender = speaker.gender;
       speakerResource.speaker = speaker;
-      await this.speakerResourcesService.create(speakerResource);
+      speakerResource.emotion_tagged = false;
+      speakerResource.transcribed = false;
+      speakerResource.verified = false;
+      speakerResource.reported = false;
+      speakerResource.notes = '';
+      await this.speakerResourcesService.save(speakerResource);
     }
 
     await this.s3ManagerService.copyFolder(

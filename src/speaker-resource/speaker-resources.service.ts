@@ -11,10 +11,10 @@ import config from 'src/config';
 export class SpeakerResourcesService extends TypeOrmCrudService<SpeakerResource> {
   constructor(
     @InjectRepository(SpeakerResource)
-    private speakerResourcesRepository: Repository<SpeakerResource>,
+    private resourcesRepository: Repository<SpeakerResource>,
     private s3ManagerService: S3ManagerService,
   ) {
-    super(speakerResourcesRepository);
+    super(resourcesRepository);
   }
 
   async deleteAudio(req: CrudRequest) {
@@ -24,15 +24,21 @@ export class SpeakerResourcesService extends TypeOrmCrudService<SpeakerResource>
     );
   }
 
-  async create(resource: SpeakerResource) {
-    return await this.speakerResourcesRepository.save(resource);
+  async save(resource: SpeakerResource) {
+    return await this.resourcesRepository.save(resource);
   }
 
-  async getTotalEntries(speakerId: number, status = '') {
-    if (status) {
-      return this.speakerResourcesRepository.count({ where: { speaker: { id: speakerId }, status } });
-    } else {
-      return this.speakerResourcesRepository.count({ where: { speaker: { id: speakerId } } });
-    }
+  async getTotalEntries(speakerId: number) {
+    return this.resourcesRepository.count({ where: { speaker: { id: speakerId } } });
+  }
+
+  async getVerifiedEntries(speakerId: number) {
+    return this.resourcesRepository.count({ where: { speaker: { id: speakerId }, verified: true } });
+  }
+
+  async getResources(speakerId: number, targetStatus, statusValue) {
+    return this.resourcesRepository.find({
+      where: { speaker: { id: speakerId }, [targetStatus]: statusValue, reported: false },
+    });
   }
 }

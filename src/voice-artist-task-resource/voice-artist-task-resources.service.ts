@@ -2,19 +2,19 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { TypeOrmCrudService } from '@nestjsx/crud-typeorm';
-import { TaskResource } from './task-resource.entity';
+import { VoiceArtistTaskResource } from './voice-artist-task-resource.entity';
 import { S3ManagerService } from 'src/aws/s3/s3-manager.service';
 import { CrudRequest } from '@nestjsx/crud';
 import config from 'src/config';
 
 @Injectable()
-export class TaskResourcesService extends TypeOrmCrudService<TaskResource> {
+export class VoiceArtistTaskResourcesService extends TypeOrmCrudService<VoiceArtistTaskResource> {
   constructor(
-    @InjectRepository(TaskResource)
-    private taskResourcesRepository: Repository<TaskResource>,
+    @InjectRepository(VoiceArtistTaskResource)
+    private resourcesRepository: Repository<VoiceArtistTaskResource>,
     private s3ManagerService: S3ManagerService,
   ) {
-    super(taskResourcesRepository);
+    super(resourcesRepository);
   }
 
   async deleteAudio(req: CrudRequest) {

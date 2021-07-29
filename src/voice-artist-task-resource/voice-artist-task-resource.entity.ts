@@ -2,7 +2,7 @@ import { VoiceArtistTask } from 'src/voice-artist-task/voice-artist-task.entity'
 import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 
 @Entity()
-export class TaskResource {
+export class VoiceArtistTaskResource {
   @PrimaryGeneratedColumn()
   id: number;
 

@@ -43,5 +43,5 @@ export class CreateTaskDto {
 
   @ApiProperty()
   @IsOptional()
-  resources: SpeakerResource[];
+  resources?: SpeakerResource[];
 }

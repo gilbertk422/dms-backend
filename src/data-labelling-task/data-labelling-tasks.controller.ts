@@ -1,12 +1,13 @@
 import { Controller, UseGuards } from '@nestjs/common';
-import { SCondition } from '@nestjsx/crud-request';
 import { ApiBearerAuth } from '@nestjs/swagger';
-import { Crud, CrudController } from '@nestjsx/crud';
+import { Crud, CrudController, CrudRequest, Override, ParsedBody, ParsedRequest } from '@nestjsx/crud';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
 import { CreateTaskDto } from './dto/create-task.dto';
 import { DataLabellingTask } from './data-labelling-task.entity';
 import { DataLabellingTasksService } from './data-labelling-tasks.service';
+import { DataLabellingTaskResourcesService } from 'src/data-labelling-task-resource/data-labelling-task-resources.service';
+import constants from 'src/constants';
 
 @Crud({
   dto: {
@@ -36,5 +37,27 @@ import { DataLabellingTasksService } from './data-labelling-tasks.service';
 @UseGuards(JwtAuthGuard)
 @Controller('data-labelling-tasks')
 export class DataLabellingTasksController implements CrudController<DataLabellingTask> {
-  constructor(public service: DataLabellingTasksService) {}
+  constructor(public service: DataLabellingTasksService, private resourcesService: DataLabellingTaskResourcesService) {}
+
+  get base(): CrudController<DataLabellingTask> {
+    return this;
+  }
+
+  @Override()
+  createOne(@ParsedRequest() req: CrudRequest, @ParsedBody() dto: CreateTaskDto) {
+    return this.service.create(dto);
+  }
+
+  @Override()
+  async getMany(@ParsedRequest() req: CrudRequest) {
+    const response: any = await this.base.getManyBase(req);
+    if (response.data) {
+      for (let task of response.data) {
+        task.left = await this.resourcesService.getLeftEntries(task.id, constants.TARGET_STATUS[task.task_type]);
+      }
+      return response;
+    } else {
+      return response;
+    }
+  }
 }
