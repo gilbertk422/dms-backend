@@ -25,13 +25,13 @@ export class User {
   @Column()
   role: string;
 
-  @OneToMany((type) => VoiceArtistTask, (t) => t.user)
+  @OneToMany(() => VoiceArtistTask, (t) => t.user)
   managing_tasks: VoiceArtistTask[];
 
-  @OneToMany((type) => VoiceArtistTask, (t) => t.manager)
+  @OneToMany(() => VoiceArtistTask, (t) => t.manager)
   assigned_tasks: VoiceArtistTask[];
 
-  @OneToMany((type) => Speaker, (t) => t.user)
+  @OneToMany(() => Speaker, (t) => t.user)
   managing_speakers: Speaker[];
 
   @CreateDateColumn()

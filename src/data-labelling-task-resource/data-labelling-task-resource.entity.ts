@@ -1,8 +1,8 @@
-import { Speaker } from 'src/speaker/speaker.entity';
+import { DataLabellingTask } from 'src/data-labelling-task/data-labelling-task.entity';
 import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 
 @Entity()
-export class SpeakerResource {
+export class DataLabellingTaskResource {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -36,12 +36,15 @@ export class SpeakerResource {
   @Column()
   notes: string;
 
+  @Column()
+  speaker_resource_id: number;
+
   @CreateDateColumn()
   created_at: Date;
 
   @UpdateDateColumn()
   updated_at: Date;
 
-  @ManyToOne(() => Speaker, (s) => s.resources, { cascade: true, onDelete: 'CASCADE' })
-  speaker: Speaker;
+  @ManyToOne(() => DataLabellingTask, (t) => t.resources, { cascade: true, onDelete: 'CASCADE' })
+  task: DataLabellingTask;
 }

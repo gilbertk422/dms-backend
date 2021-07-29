@@ -5,7 +5,8 @@ import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { VoiceArtistTasksModule } from './voice-artist-task/voice-artist-tasks.module';
-import { TaskResourcesModule } from './task-resource/task-resources.module';
+import { VoiceArtistTaskResourcesModule } from './voice-artist-task-resource/voice-artist-task-resources.module';
+import { DataLabellingTaskResourcesModule } from './data-labelling-task-resource/data-labelling-task-resources.module';
 import { DataLabellingTasksModule } from './data-labelling-task/data-labelling-tasks.module';
 import { SpeakersModule } from './speaker/speakers.module';
 import { SpeakerResourcesModule } from './speaker-resource/speaker-resources.module';
@@ -29,7 +30,8 @@ import config from './config';
     UsersModule,
     VoiceArtistTasksModule,
     DataLabellingTasksModule,
-    TaskResourcesModule,
+    VoiceArtistTaskResourcesModule,
+    DataLabellingTaskResourcesModule,
     SpeakersModule,
     SpeakerResourcesModule,
     TypeOrmModule.forRoot({

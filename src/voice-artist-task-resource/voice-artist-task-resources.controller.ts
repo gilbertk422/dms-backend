@@ -4,12 +4,12 @@ import { Crud, CrudController, CrudRequest, Override, ParsedRequest } from '@nes
 import { BasicAuthGuard } from 'src/auth/basic-auth.guard';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
-import { TaskResource } from './task-resource.entity';
-import { TaskResourcesService } from './task-resources.service';
+import { VoiceArtistTaskResource } from './voice-artist-task-resource.entity';
+import { VoiceArtistTaskResourcesService } from './voice-artist-task-resources.service';
 
 @Crud({
   model: {
-    type: TaskResource,
+    type: VoiceArtistTaskResource,
   },
   query: {
     join: {
@@ -24,11 +24,11 @@ import { TaskResourcesService } from './task-resources.service';
 })
 @ApiBearerAuth()
 @UseGuards(JwtAuthGuard)
-@Controller('task-resources')
-export class TaskResourcesController implements CrudController<TaskResource> {
-  constructor(public service: TaskResourcesService) {}
+@Controller('voice-artist-task-resources')
+export class VoiceArtistTaskResourcesController implements CrudController<VoiceArtistTaskResource> {
+  constructor(public service: VoiceArtistTaskResourcesService) {}
 
-  get base(): CrudController<TaskResource> {
+  get base(): CrudController<VoiceArtistTaskResource> {
     return this;
   }
 
@@ -41,7 +41,7 @@ export class TaskResourcesController implements CrudController<TaskResource> {
 
 @Crud({
   model: {
-    type: TaskResource,
+    type: VoiceArtistTaskResource,
   },
   query: {
     join: {
@@ -53,11 +53,11 @@ export class TaskResourcesController implements CrudController<TaskResource> {
 })
 @ApiBasicAuth()
 @UseGuards(BasicAuthGuard)
-@Controller('external/task-resources')
-export class ExternalTaskResourcesController implements CrudController<TaskResource> {
-  constructor(public service: TaskResourcesService) {}
+@Controller('external/voice-artist-task-resources')
+export class ExternalVoiceArtistTaskResourcesController implements CrudController<VoiceArtistTaskResource> {
+  constructor(public service: VoiceArtistTaskResourcesService) {}
 
-  get base(): CrudController<TaskResource> {
+  get base(): CrudController<VoiceArtistTaskResource> {
     return this;
   }
 }

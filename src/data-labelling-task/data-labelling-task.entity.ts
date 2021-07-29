@@ -1,4 +1,4 @@
-import { SpeakerResource } from 'src/speaker-resource/speaker-resource.entity';
+import { DataLabellingTaskResource } from 'src/data-labelling-task-resource/data-labelling-task-resource.entity';
 import { Speaker } from 'src/speaker/speaker.entity';
 import { User } from 'src/users/user.entity';
 import {
@@ -11,6 +11,7 @@ import {
   UpdateDateColumn,
   ManyToMany,
   JoinTable,
+  OneToMany,
 } from 'typeorm';
 
 @Entity()
@@ -52,13 +53,8 @@ export class DataLabellingTask {
   })
   managers: User[];
 
-  @ManyToMany(() => SpeakerResource)
-  @JoinTable({
-    name: 'speaker_resource_data_labelling_task',
-    joinColumn: { name: 'speaker_resource_id', referencedColumnName: 'id' },
-    inverseJoinColumn: { name: 'task_id', referencedColumnName: 'id' },
-  })
-  resources: SpeakerResource[];
+  @OneToMany(() => DataLabellingTaskResource, (r) => r.task)
+  resources: DataLabellingTaskResource[];
 
   @CreateDateColumn()
   created_at: Date;

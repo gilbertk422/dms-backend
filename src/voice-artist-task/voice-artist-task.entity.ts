@@ -1,4 +1,4 @@
-import { TaskResource } from 'src/task-resource/task-resource.entity';
+import { VoiceArtistTaskResource } from 'src/voice-artist-task-resource/voice-artist-task-resource.entity';
 import { User } from 'src/users/user.entity';
 import {
   Entity,
@@ -48,8 +48,8 @@ export class VoiceArtistTask {
   @JoinColumn()
   manager: User;
 
-  @OneToMany((resource) => TaskResource, (r) => r.task)
-  resources: TaskResource[];
+  @OneToMany(() => VoiceArtistTaskResource, (r) => r.task)
+  resources: VoiceArtistTaskResource[];
 
   @CreateDateColumn()
   created_at: Date;
