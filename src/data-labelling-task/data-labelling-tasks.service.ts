@@ -2,7 +2,8 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { TypeOrmCrudService } from '@nestjsx/crud-typeorm';
-import { Crud } from '@nestjsx/crud';
+import { Crud, CrudRequest } from '@nestjsx/crud';
+import { ParsedRequestParams } from '@nestjsx/crud-request';
 import { DataLabellingTask } from './data-labelling-task.entity';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { DataLabellingTaskResource } from 'src/data-labelling-task-resource/data-labelling-task-resource.entity';
@@ -78,5 +79,9 @@ export class DataLabellingTasksService extends TypeOrmCrudService<DataLabellingT
     }
 
     return task;
+  }
+
+  async findAll(params: ParsedRequestParams) {
+    console.log(params);
   }
 }

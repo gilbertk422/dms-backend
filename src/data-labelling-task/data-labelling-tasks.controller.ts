@@ -1,4 +1,4 @@
-import { Controller, UseGuards } from '@nestjs/common';
+import { Controller, Req, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth } from '@nestjs/swagger';
 import { Crud, CrudController, CrudRequest, Override, ParsedBody, ParsedRequest } from '@nestjsx/crud';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
@@ -8,6 +8,7 @@ import { DataLabellingTask } from './data-labelling-task.entity';
 import { DataLabellingTasksService } from './data-labelling-tasks.service';
 import { DataLabellingTaskResourcesService } from 'src/data-labelling-task-resource/data-labelling-task-resources.service';
 import constants from 'src/constants';
+import { IUserRequest } from 'src/users/user.entity';
 
 @Crud({
   dto: {
@@ -49,7 +50,7 @@ export class DataLabellingTasksController implements CrudController<DataLabellin
   }
 
   @Override()
-  async getMany(@ParsedRequest() req: CrudRequest) {
+  async getMany(@ParsedRequest() req: CrudRequest, @Req() request: IUserRequest) {
     const response: any = await this.base.getManyBase(req);
     if (response.data) {
       for (let task of response.data) {

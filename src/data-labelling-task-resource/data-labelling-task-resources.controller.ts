@@ -15,7 +15,7 @@ import { DataLabellingTaskResourcesService } from './data-labelling-task-resourc
       task: {
         eager: true,
       },
-      'task.manager': {
+      'task.managers': {
         eager: true,
       },
     },
