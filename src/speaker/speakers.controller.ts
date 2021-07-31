@@ -58,7 +58,10 @@ export class SpeakersController implements CrudController<Speaker> {
     if (response.data) {
       for (let speaker of response.data) {
         speaker.entries = await this.speakerResourcesService.getTotalEntries(speaker.id);
+        speaker.emotion_tagged = await this.speakerResourcesService.getEmotionTaggedEntries(speaker.id);
+        speaker.transcribed = await this.speakerResourcesService.getTranscribedEntries(speaker.id);
         speaker.verified = await this.speakerResourcesService.getVerifiedEntries(speaker.id);
+        speaker.reported = await this.speakerResourcesService.getReportedEntries(speaker.id);
       }
       return response;
     } else {
@@ -71,7 +74,10 @@ export class SpeakersController implements CrudController<Speaker> {
     const response: any = await this.base.getOneBase(req);
 
     response.entries = await this.speakerResourcesService.getTotalEntries(response.id);
+    response.emotion_tagged = await this.speakerResourcesService.getEmotionTaggedEntries(response.id);
+    response.transcribed = await this.speakerResourcesService.getTranscribedEntries(response.id);
     response.verified = await this.speakerResourcesService.getVerifiedEntries(response.id);
+    response.reported = await this.speakerResourcesService.getReportedEntries(response.id);
 
     return response;
   }

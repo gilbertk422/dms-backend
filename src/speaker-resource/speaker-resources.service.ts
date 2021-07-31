@@ -32,8 +32,20 @@ export class SpeakerResourcesService extends TypeOrmCrudService<SpeakerResource>
     return this.resourcesRepository.count({ where: { speaker: { id: speakerId } } });
   }
 
+  async getEmotionTaggedEntries(speakerId: number) {
+    return this.resourcesRepository.count({ where: { speaker: { id: speakerId }, emotion_tagged: true } });
+  }
+
+  async getTranscribedEntries(speakerId: number) {
+    return this.resourcesRepository.count({ where: { speaker: { id: speakerId }, transcribed: true } });
+  }
+
   async getVerifiedEntries(speakerId: number) {
     return this.resourcesRepository.count({ where: { speaker: { id: speakerId }, verified: true } });
+  }
+
+  async getReportedEntries(speakerId: number) {
+    return this.resourcesRepository.count({ where: { speaker: { id: speakerId }, reported: true } });
   }
 
   async getResources(speakerId: number, targetStatus, statusValue) {
