@@ -10,7 +10,7 @@
       "err_file": "/home/ubuntu/dms-backend/hooker.err.log",
       "merge_logs": true,
       "instances": 1,
-      "exec_mode": "fork"
+      "exec_mode": "cluster"
     }
   ]
 }
