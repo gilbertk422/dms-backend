@@ -23,7 +23,7 @@ jobs:
         if: success()
         uses: voxmedia/github-action-slack-notify-build@v1
         with:
-          channel: audio-dms
+          channel_id: C0240CCALMA
           status: SUCCESS
           color: good
         env:
@@ -33,7 +33,7 @@ jobs:
         if: failure()
         uses: voxmedia/github-action-slack-notify-build@v1
         with:
-          channel: audio-dms
+          channel_id: C0240CCALMA
           status: FAILURE
           color: danger
         env:
