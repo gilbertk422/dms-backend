@@ -1,0 +1,16 @@
+{
+  "apps": [
+    {
+      "name": "dms-abckend",
+      "script": "npm",
+      "args": "run start",
+      "watch": false,
+      "cwd": "/home/ubuntu/dms-backend/",
+      "out_file": "/home/ubuntu/dms-backend/hooker.out.log",
+      "err_file": "/home/ubuntu/dms-backend/hooker.err.log",
+      "merge_logs": true,
+      "instances": 1,
+      "exec_mode": "fork"
+    }
+  ]
+}
