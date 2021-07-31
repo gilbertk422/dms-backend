@@ -43,7 +43,7 @@ export class AppController {
   async upload(@Body() uploadDto: UploadDto) {
     const resultKey = `${uuidv4()}${path.extname(uploadDto.filename)}`;
     const uploadURL = await this.s3ManagerService.getSignedUrl(
-      `${uploadDto.prefix ? uploadDto.prefix + '/' : ''}${resultKey}`,
+      uploadDto.prefix ? `${uploadDto.prefix}/${resultKey}` : resultKey,
       mime.lookup(resultKey),
     );
     return { resultKey, uploadURL };
