@@ -18,3 +18,23 @@ jobs:
           username: ${{ secrets.AWS_USER }}
           key: ${{ secrets.AWS_KEY }}
           script: sh /home/ubuntu/dms-backend/deploy.sh
+
+      - name: sending success build notification to slack
+        if: success()
+        uses: voxmedia/github-action-slack-notify-build@v1
+        with:
+          channel: audio-dms
+          status: SUCCESS
+          color: good
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_NOTIFICATIONS_BOT_TOKEN }}
+
+      - name: sending failure build notification to slack
+        if: failure()
+        uses: voxmedia/github-action-slack-notify-build@v1
+        with:
+          channel: audio-dms
+          status: FAILURE
+          color: danger
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_NOTIFICATIONS_BOT_TOKEN }}
