@@ -61,4 +61,17 @@ export class DataLabellingTasksController implements CrudController<DataLabellin
       return response;
     }
   }
+
+  @Override()
+  async getOne(@ParsedRequest() req: CrudRequest) {
+    const response: any = await this.base.getOneBase(req);
+
+    response.entries = await this.resourcesService.getTotalEntries(response.id);
+    response.emotion_tagged = await this.resourcesService.getEmotionTaggedEntries(response.id);
+    response.transcribed = await this.resourcesService.getTranscribedEntries(response.id);
+    response.verified = await this.resourcesService.getVerifiedEntries(response.id);
+    response.reported = await this.resourcesService.getReportedEntries(response.id);
+
+    return response;
+  }
 }
