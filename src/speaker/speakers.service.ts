@@ -34,6 +34,7 @@ export class SpeakersService extends TypeOrmCrudService<Speaker> {
       }
       await this.speakerResourcesService.save(speakerResource);
     }
+    return task;
   }
 
   async generate(task: VoiceArtistTask) {
