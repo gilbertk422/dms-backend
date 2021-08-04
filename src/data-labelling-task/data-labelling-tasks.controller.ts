@@ -66,6 +66,10 @@ export class DataLabellingTasksController implements CrudController<DataLabellin
   async getOne(@ParsedRequest() req: CrudRequest) {
     const response: any = await this.base.getOneBase(req);
 
+    response.left = await this.resourcesService.getLeftEntries(
+      response.id,
+      constants.TARGET_STATUS[response.task_type],
+    );
     response.entries = await this.resourcesService.getTotalEntries(response.id);
     response.emotion_tagged = await this.resourcesService.getEmotionTaggedEntries(response.id);
     response.transcribed = await this.resourcesService.getTranscribedEntries(response.id);
