@@ -16,4 +16,7 @@ export default {
   },
 
   prefix: process.env.PREFIX,
+
+  queueHost: process.env.QUEUE_HOST,
+  queuePort: process.env.QUEUE_PORT,
 };

@@ -14,6 +14,7 @@ import { AwsSdkModule } from 'nest-aws-sdk';
 import { S3ManagerModule } from './aws/s3/s3-manager.module';
 import { S3 } from 'aws-sdk';
 import config from './config';
+import { ExportModule } from './export/export.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import config from './config';
       },
       services: [S3],
     }),
+    ExportModule,
     AuthModule,
     UsersModule,
     VoiceArtistTasksModule,
