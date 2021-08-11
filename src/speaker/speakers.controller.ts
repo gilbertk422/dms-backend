@@ -1,5 +1,5 @@
 import { Controller, Get, Req, UseGuards } from '@nestjs/common';
-import { ApiBearerAuth } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiParam } from '@nestjs/swagger';
 import { Crud, CrudController, CrudRequest, GetManyDefaultResponse, Override, ParsedRequest } from '@nestjsx/crud';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { DataLabellingTasksService } from 'src/data-labelling-task/data-labelling-tasks.service';
@@ -38,6 +38,7 @@ export class SpeakersController implements CrudController<Speaker> {
 
   // approve voice artist task
   @Get('/generate/:taskId')
+  @ApiParam({ name: 'taskId' })
   async generate(@Req() req) {
     const task = await this.voiceArtistTasksService.findOne(req.params.taskId, { relations: ['user', 'resources'] });
     return await this.service.generate(task);
@@ -45,6 +46,7 @@ export class SpeakersController implements CrudController<Speaker> {
 
   // approve data abelling task
   @Get('/process/:taskId')
+  @ApiParam({ name: 'taskId' })
   async process(@Req() req) {
     const task = await this.dataLabellingTasksService.findOne(req.params.taskId, {
       relations: ['user', 'resources', 'speaker'],
