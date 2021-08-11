@@ -1,5 +1,5 @@
 echo "Kill all the running PM2 actions"
-sudo pm2 kill
+sudo pm2 delete dms-backend
 
 echo "Jump to app folder"
 cd /home/ubuntu/dms-backend
