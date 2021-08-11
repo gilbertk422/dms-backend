@@ -1,8 +1,9 @@
-import { Controller, Get, Req } from '@nestjs/common';
-import { ApiParam } from '@nestjs/swagger';
-import { GetJobStatusDto } from './dto/get-job-status.dto';
+import { Controller, Get, Req, UseGuards } from '@nestjs/common';
+import { ApiBearerAuth, ApiParam } from '@nestjs/swagger';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { ExportProducerService } from './export.producer.service';
-
+@ApiBearerAuth()
+@UseGuards(JwtAuthGuard)
 @Controller('export')
 export default class ExportController {
   constructor(private exportProducerService: ExportProducerService) {}
