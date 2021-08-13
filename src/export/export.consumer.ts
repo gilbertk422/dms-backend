@@ -7,6 +7,7 @@ import { S3ManagerService } from 'src/aws/s3/s3-manager.service';
 import { IJob } from './export.producer.service';
 import * as archiver from 'archiver';
 import config from 'src/config';
+import * as os from 'os';
 
 const createTempDir = (dir = '') => {
   const tempDir = path.join(process.cwd(), 'workDir', dir ? dir : uuidv4());
@@ -59,7 +60,7 @@ export class ExportConsumer {
       await this.s3ManagerService.download(tempSrcDir, resource.audio);
       await fs.writeFileSync(
         path.join(tempSrcDir, 'labels.txt'),
-        `${path.basename(resource.audio)}|${resource.transcription}`,
+        `${path.basename(resource.audio)}|${resource.transcription}${os.EOL}`,
         { flag: 'a' },
       );
     }
