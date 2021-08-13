@@ -3,7 +3,7 @@ import { InjectAwsService } from 'nest-aws-sdk';
 import { S3 } from 'aws-sdk';
 import config from '../../config';
 import * as path from 'path';
-
+import * as fs from 'fs';
 @Injectable()
 export class S3ManagerService {
   private readonly Bucket = config.aws.s3BucketName;
@@ -11,6 +11,45 @@ export class S3ManagerService {
 
   async deleteObject(key: string) {
     await this.s3.deleteObject({ Bucket: this.Bucket, Key: key }).promise();
+  }
+
+  download(workDir: string, key: string) {
+    const params = {
+      Bucket: this.Bucket,
+      Key: key,
+    };
+
+    const filePath = path.join(workDir, path.basename(key));
+    const fileStream = fs.createWriteStream(filePath);
+    return new Promise((resolve, reject) => {
+      this.s3
+        .getObject(params)
+        .createReadStream()
+        .on('end', function () {
+          fileStream.close();
+          resolve(filePath);
+        })
+        .on('error', reject)
+        .pipe(fileStream);
+    });
+  }
+
+  upload(filePath: string, key: string) {
+    var fileStream = fs.createReadStream(filePath);
+
+    var params = {
+      Bucket: this.Bucket,
+      Key: key,
+      Body: fileStream,
+    };
+
+    return new Promise((resolve, reject) => {
+      this.s3.upload(params, (err) => {
+        if (err) return reject(err);
+        fileStream.close();
+        resolve(key);
+      });
+    });
   }
 
   async getSignedUrl(key: string, contentType: string) {

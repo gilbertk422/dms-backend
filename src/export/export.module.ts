@@ -6,6 +6,8 @@ import { BullModule } from '@nestjs/bull';
 import { QueueUIProvider } from './queueui.provider';
 import { UI } from 'bull-board';
 import { ExportConsumer } from './export.consumer';
+import { SpeakerResourcesModule } from 'src/speaker-resource/speaker-resources.module';
+import { S3ManagerService } from 'src/aws/s3/s3-manager.service';
 
 @Module({
   imports: [
@@ -18,8 +20,9 @@ import { ExportConsumer } from './export.consumer';
     BullModule.registerQueue({
       name: 'export-queue',
     }),
+    SpeakerResourcesModule,
   ],
-  providers: [ExportService, ExportProducerService, ExportConsumer, QueueUIProvider],
+  providers: [ExportService, ExportProducerService, ExportConsumer, QueueUIProvider, S3ManagerService],
   exports: [ExportService],
   controllers: [ExportController],
 })
