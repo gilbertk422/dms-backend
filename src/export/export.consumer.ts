@@ -1,4 +1,4 @@
-import { OnQueueCompleted, Process, Processor } from '@nestjs/bull';
+import { Process, Processor } from '@nestjs/bull';
 import { Job } from 'bull';
 import * as path from 'path';
 import * as fs from 'fs';
@@ -6,8 +6,8 @@ import { v4 as uuidv4 } from 'uuid';
 import { S3ManagerService } from 'src/aws/s3/s3-manager.service';
 import { IJob } from './export.producer.service';
 import * as archiver from 'archiver';
-import config from 'src/config';
 import * as os from 'os';
+import config from 'src/config';
 
 const createTempDir = (dir = '') => {
   const tempDir = path.join(process.cwd(), 'workDir', dir ? dir : uuidv4());
